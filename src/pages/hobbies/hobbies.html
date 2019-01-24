@@ -1,18 +1,16 @@
-<!--
-  Generated template for the HobbiesPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>hobbies</ion-title>
+    <ion-title>List of hobbies</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-
+  <h3 text-center>Select your category</h3>
+  <ion-list>
+    <button ion-item *ngFor="let hobbyGroup of hobbyList">
+      <ion-icon [name]="hobbyGroup.icon" item-left></ion-icon>
+      <h2>{{hobbyGroup.category | uppercase}}</h2>
+      <p>{{hobbyGroup.hobbies.length}} Hobbies</p>
+    </button>
+  </ion-list>
 </ion-content>

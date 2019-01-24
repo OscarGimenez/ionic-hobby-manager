@@ -1,25 +1,18 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
 
-/**
- * Generated class for the HobbiesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Hobby } from '../../data/hobby.interface';
 
-@IonicPage()
+import hobbies from '../../data/hobbies';
+
 @Component({
   selector: 'page-hobbies',
   templateUrl: 'hobbies.html',
 })
-export class HobbiesPage {
+export class HobbiesPage implements OnInit {
+  hobbyList: {category: string, hobbies: Hobby[], icon: string}[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HobbiesPage');
+  ngOnInit() {
+    this.hobbyList = hobbies;
   }
 
 }
