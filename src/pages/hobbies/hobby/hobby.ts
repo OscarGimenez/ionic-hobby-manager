@@ -1,25 +1,50 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, OnInit } from "@angular/core";
+import { NavParams, AlertController } from "ionic-angular";
+import { Hobby } from "../../../data/hobby.interface";
 
-/**
- * Generated class for the HobbyPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
-  selector: 'page-hobby',
-  templateUrl: 'hobby.html',
+  selector: "page-hobby",
+  templateUrl: "hobby.html"
 })
-export class HobbyPage {
+export class HobbyPage implements OnInit {
+  hobbieCategory: { category: string; hobbies: Hobby[]; icon: string };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    private navParams: NavParams,
+    private alertCtrl: AlertController
+  ) {}
+
+  //   Don't forget to add (?) in template to use this approach -> hobbies?.category
+  // ionViewDidLoad() {
+  //   this.hobbies = this.navParams.data;
+  // }
+
+  //Other approach
+  ngOnInit() {
+    this.hobbieCategory = this.navParams.data;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HobbyPage');
+  onAddToFavourite(selectedHobby: Hobby) {
+    const alert = this.alertCtrl.create({
+      title: 'Add Hobby',
+      subTitle: selectedHobby.name,
+      message: 'Do you want to mark this hobby to your favourites?',
+      buttons: [
+        {
+          text: 'Yes, of course',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: 'No, sorry!!',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancelled');
+          }
+        }
+      ]
+    });
+    alert.present();
   }
-
 }

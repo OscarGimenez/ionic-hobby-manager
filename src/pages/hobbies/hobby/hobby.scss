@@ -1,3 +1,17 @@
 page-hobby {
+  .hobby-name {
+    color: darkred;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
 
+    &:before {
+      content: "[ ";
+    }
+
+    &:after {
+      content: " ]";
+    }
+  }
 }
