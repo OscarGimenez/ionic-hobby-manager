@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { ModalController } from "ionic-angular";
 
 import { HobbiesService } from "../../services/hobbies";
+import { SettingsService } from "../../services/settings";
 
 import { Hobby } from "../../data/hobby.interface";
 import { ModalPage } from "../modal/modal";
@@ -14,8 +15,9 @@ export class FavouritesPage {
   hobbies: Hobby[];
 
   constructor(
+    private settingsService: SettingsService,
     private hobbiesService: HobbiesService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
   ) {}
 
   ionViewWillEnter() {
@@ -40,5 +42,14 @@ export class FavouritesPage {
       return hobbyElement.id == hobby.id;
     });
     this.hobbies.splice(position, 1);
+  }
+
+  getBackground() {
+    return this.settingsService.isAlternative() ? 'altBackground' : 'primaryBackground';
+  }
+
+  //Other approach
+  isAltBackground() {
+    return this.settingsService.isAlternative();
   }
 }

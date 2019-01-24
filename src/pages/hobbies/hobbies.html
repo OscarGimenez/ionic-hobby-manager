@@ -1,5 +1,10 @@
 <ion-header>
   <ion-navbar>
+    <ion-buttons start>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>List of hobbies</ion-title>
   </ion-navbar>
 </ion-header>
@@ -7,11 +12,7 @@
 <ion-content padding>
   <h3 text-center>Select your category</h3>
   <ion-list>
-    <button ion-item 
-    *ngFor="let hobbyGroup of hobbyList"
-    [navPush]="hobbyPage"
-    [navParams]="hobbyGroup" 
-    >
+    <button ion-item *ngFor="let hobbyGroup of hobbyList" [navPush]="hobbyPage" [navParams]="hobbyGroup">
       <ion-icon [name]="hobbyGroup.icon" item-left></ion-icon>
       <h2>{{hobbyGroup.category | uppercase}}</h2>
       <p>{{hobbyGroup.hobbies.length}} Hobbies</p>

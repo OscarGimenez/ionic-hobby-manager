@@ -1,26 +1,28 @@
 <ion-header>
-
   <ion-navbar>
+    <ion-buttons start>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>Favourite Hobbies</ion-title>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content padding>
   <ion-list>
     <ion-item-sliding *ngFor="let hobby of hobbies">
-      <ion-item (click)="onViewHobby(hobby)">
+      <!-- [color]="getBackground()" // For the other approach-->
+      <ion-item color="primaryBackground" [ngClass]="{alt: isAltBackground()}" (click)="onViewHobby(hobby)">
         <h2>{{hobby.name}}</h2>
         <p>{{hobby.description}}</p>
       </ion-item>
       <ion-item-options>
         <button ion-button color="danger" (click)="onRemoveFromFavourites(hobby)">
-            <ion-icon name="trash"></ion-icon>
-            Delete
+          <ion-icon name="trash"></ion-icon>
+          Delete
         </button>
       </ion-item-options>
     </ion-item-sliding>
-
   </ion-list>
 </ion-content>
