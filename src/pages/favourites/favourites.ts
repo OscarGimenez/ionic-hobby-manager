@@ -1,25 +1,44 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { ModalController } from "ionic-angular";
 
-/**
- * Generated class for the FavouritesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { HobbiesService } from "../../services/hobbies";
 
-@IonicPage()
+import { Hobby } from "../../data/hobby.interface";
+import { ModalPage } from "../modal/modal";
+
 @Component({
-  selector: 'page-favourites',
-  templateUrl: 'favourites.html',
+  selector: "page-favourites",
+  templateUrl: "favourites.html"
 })
 export class FavouritesPage {
+  hobbies: Hobby[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    private hobbiesService: HobbiesService,
+    private modalCtrl: ModalController
+  ) {}
+
+  ionViewWillEnter() {
+    this.hobbies = this.hobbiesService.getFavouriteHobbies();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad FavouritesPage');
+  onViewHobby(hobby: Hobby) {
+    const modal = this.modalCtrl.create(ModalPage, hobby);
+    modal.present();
+    modal.onDidDismiss((remove: boolean) => {
+      if (remove) {
+        this.onRemoveFromFavourites(hobby);
+        // Other approach
+        // this.hobbies = this.hobbiesService.getFavouriteHobbies();
+      }
+    });
   }
 
+  onRemoveFromFavourites(hobby: Hobby) {
+    this.hobbiesService.removeHobbyToFavourites(hobby);
+    const position = this.hobbies.findIndex((hobbyElement: Hobby) => {
+      return hobbyElement.id == hobby.id;
+    });
+    this.hobbies.splice(position, 1);
+  }
 }

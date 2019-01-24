@@ -14,7 +14,14 @@ export class HobbiesService {
     this.favouriteHobbies.splice(position, 1);
   }
 
-  getFavouriteHobbies(hobby: Hobby) {
+  getFavouriteHobbies() {
     return this.favouriteHobbies.slice();
   }
+
+  isFavourite(hobby: Hobby) {
+    return this.favouriteHobbies.find((hobbyElement: Hobby) => {
+      return hobbyElement.id == hobby.id;
+    });
+  }
+
 }

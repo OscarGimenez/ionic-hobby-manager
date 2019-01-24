@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { NavParams, AlertController } from "ionic-angular";
 import { Hobby } from "../../../data/hobby.interface";
+import { HobbiesService } from "../../../services/hobbies";
 
 @Component({
   selector: "page-hobby",
@@ -11,7 +12,8 @@ export class HobbyPage implements OnInit {
 
   constructor(
     private navParams: NavParams,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private hobbiesService: HobbiesService
   ) {}
 
   //   Don't forget to add (?) in template to use this approach -> hobbies?.category
@@ -33,7 +35,7 @@ export class HobbyPage implements OnInit {
         {
           text: 'Yes, of course',
           handler: () => {
-            
+            this.hobbiesService.addHobbyToFavourites(selectedHobby);
           }
         },
         {
@@ -46,5 +48,13 @@ export class HobbyPage implements OnInit {
       ]
     });
     alert.present();
+  }
+
+  onRemoveFromFavourites(hobby: Hobby){
+    this.hobbiesService.removeHobbyToFavourites(hobby);
+  }
+
+  isFavourite(hobby: Hobby) {
+    return this.hobbiesService.isFavourite(hobby);
   }
 }
